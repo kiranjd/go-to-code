@@ -7,7 +7,8 @@ A Chrome extension that lets you open Bitbucket code directly in Cursor editor w
 - One-click file opening from Bitbucket pull requests
 - Opens files at the exact line you clicked
 - Simple repository path mapping
-- Works with Cursor editor
+- Works with Cursor editor and all VS Code forks (VSCodium, Code OSS, etc.)
+- Supports multiple editors including VS Code, Sublime Text, Android Studio, and Xcode
 
 ## Installation
 
@@ -17,7 +18,7 @@ See [Installation Guide](docs/INSTALLATION.md) for setup instructions.
 
 1. Map your Bitbucket repositories to local paths
 2. Click any line in a pull request
-3. File opens in Cursor at the clicked line
+3. File opens in your preferred editor at the clicked line
 
 ## Development
 
