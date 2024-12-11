@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Repository Mappings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        width: 320px;
+        padding: 16px;
+        margin: 0;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        color: #2c3e50;
+      }
+
+      h1 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 16px 0;
+        color: #1f2937;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      label {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #24292e;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        box-sizing: border-box;
+        transition: all 0.15s ease;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #0366d6;
+        box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+      }
+
+      input::placeholder {
+        color: #9ca3af;
+      }
+
+      button {
+        background: #0366d6;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        width: 100%;
+        transition: background-color 0.2s;
+      }
+
+      button:hover {
+        background: #0255b3;
+      }
+
+      .add-button {
+        width: 100%;
+        margin-top: 4px;
+      }
+
+      .mappings-list {
+        margin-top: 20px;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 16px;
+      }
+
+      .mapping-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 16px;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        background: #fff;
+        transition: all 0.2s ease;
+      }
+
+      .mapping-item:hover {
+        border-color: #0366d6;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .mapping-details {
+        flex-grow: 1;
+        margin-right: 12px;
+        min-width: 0; /* Allows text truncation to work */
+      }
+
+      .repo-name {
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #24292e;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      .repo-name::before {
+        content: "";
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        background-image: url('data:image/svg+xml,<svg viewBox="0 0 16 16" fill="%2324292e" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>');
+        background-repeat: no-repeat;
+      }
+
+      .local-path {
+        color: #586069;
+        font-size: 0.9em;
+        word-break: break-all;
+        display: flex;
+        align-items: center;
+      }
+
+      .local-path::before {
+        content: "";
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        background-image: url('data:image/svg+xml,<svg viewBox="0 0 16 16" fill="%23586069" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.75 1A1.75 1.75 0 000 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0016 13.25v-8.5A1.75 1.75 0 0014.25 3h-6.5a.25.25 0 01-.2-.1l-.9-1.2c-.33-.44-.85-.7-1.4-.7h-3.5z"/></svg>');
+        background-repeat: no-repeat;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 4px;
+        padding-top: 2px;
+      }
+
+      .edit-button,
+      .remove-button {
+        background: none;
+        border: none;
+        padding: 6px;
+        cursor: pointer;
+        color: #586069;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+      }
+
+      .edit-button:hover {
+        background: #f1f8ff;
+        color: #0366d6;
+      }
+
+      .remove-button:hover {
+        background: #ffeef0;
+        color: #cb2431;
+      }
+
+      .cancel-button {
+        background: #f6f8fa;
+        border: 1px solid #e1e4e8;
+        color: #24292e;
+        padding: 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 8px;
+        width: 100%;
+        transition: background-color 0.2s;
+      }
+
+      .cancel-button:hover {
+        background: #e1e4e8;
+      }
+
+      #addMappingBtn {
+        width: 100%;
+      }
+
+      .editor-form {
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #24292e;
+      }
+
+      .input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      .input:focus {
+        border-color: #0366d6;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+      }
+
+      .section {
+        margin-bottom: 24px;
+      }
+
+      .section h2 {
+        margin-bottom: 16px;
+        font-size: 20px;
+        font-weight: 600;
+        color: #24292e;
+      }
+
+      #mappingsList {
+        margin-top: 16px;
+      }
+
+      .mapping-item {
+        padding: 16px;
+      }
+
+      .repo-name {
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      .editor-info {
+        color: #586069;
+        font-size: 12px;
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+      }
+
+      .editor-info::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 6px;
+        background-image: url('data:image/svg+xml,<svg viewBox="0 0 16 16" fill="%23586069" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"/></svg>');
+        background-repeat: no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Repository Mappings</h1>
+
+    <div class="section">
+      <h2>Editor Settings</h2>
+      <div class="editor-form">
+        <div class="form-group">
+          <label for="editorSelect">Choose Editor:</label>
+          <select id="editorSelect" class="input">
+            <option value="cursor">Cursor</option>
+            <option value="vscode">VS Code</option>
+            <option value="sublime">Sublime Text</option>
+            <option value="androidStudio">Android Studio</option>
+            <option value="xcode">Xcode</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+
+        <div id="customEditorFields" style="display: none">
+          <div class="form-group">
+            <label for="customEditorName">Editor Name:</label>
+            <input
+              type="text"
+              id="customEditorName"
+              class="input"
+              placeholder="My Editor"
+            />
+          </div>
+          <div class="form-group">
+            <label for="customProtocol">Protocol Format:</label>
+            <input
+              type="text"
+              id="customProtocol"
+              class="input"
+              placeholder="myeditor://file/{path}:{line}"
+            />
+          </div>
+        </div>
+
+        <div id="ideSpecificFields" style="display: none">
+          <div class="form-group">
+            <label for="projectRoot">Project/Workspace Root:</label>
+            <input
+              type="text"
+              id="projectRoot"
+              class="input"
+              placeholder="/path/to/project"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Repository Mappings</h2>
+
+      <form class="mapping-form">
+        <div class="form-group">
+          <label for="repoName">Repository Name:</label>
+          <input
+            type="text"
+            id="repoName"
+            class="input"
+            placeholder="e.g., my-project"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="localPath">Local Directory Path:</label>
+          <input
+            type="text"
+            id="localPath"
+            class="input"
+            placeholder="e.g., /Users/me/projects/my-project"
+            required
+          />
+        </div>
+
+        <button type="submit" class="button" id="addMappingBtn">
+          Add Mapping
+        </button>
+        <button
+          type="button"
+          class="cancel-button"
+          id="cancelEditBtn"
+          style="display: none"
+        >
+          Cancel
+        </button>
+      </form>
+
+      <div id="mappingsList"></div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
