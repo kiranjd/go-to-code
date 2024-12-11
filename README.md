@@ -1,30 +1,24 @@
-# Bitbucket Code Opener for Cursor
+# Bitbucket Code Opener
 
-A Chrome extension that lets you open Bitbucket code directly in Cursor editor with a single click.
+Chrome extension to open Bitbucket files in your code editor with one click.
 
 ## Features
 
-- One-click file opening from Bitbucket pull requests
-- Opens files at the exact line you clicked
-- Simple repository path mapping
-- Works with Cursor editor and all VS Code forks (VSCodium, Code OSS, etc.)
-- Supports multiple editors including VS Code, Sublime Text, Android Studio, and Xcode
+- Click any line in Bitbucket to open it in your editor
+- Supports VS Code, VS Code forks, Sublime Text, Android Studio, and Xcode
+- Maps repository paths to your local workspace
 
 ## Installation
 
-See [Installation Guide](docs/INSTALLATION.md) for setup instructions.
-
-## How it Works
-
-1. Map your Bitbucket repositories to local paths
-2. Click any line in a pull request
-3. File opens in your preferred editor at the clicked line
-
-## Development
-
-1. Clone this repo
-2. Load unpacked extension (see Installation Guide)
-3. Make changes and reload extension to test
+1. Download and unzip [latest release](https://github.com/yourusername/bitbucket-code-opener/releases)
+2. Go to Chrome Extensions (chrome://extensions/)
+3. Enable "Developer mode" in top right
+4. Click "Load unpacked" and select the unzipped folder
+5. Click extension icon in toolbar
+6. Add your repository mappings:
+   - Repository: `your-bitbucket-repo-name`
+   - Local path: `/path/to/local/repo`
+7. Select your preferred editor
 
 ## License
 
